@@ -63,7 +63,7 @@ import java.util.stream.Collectors;
 @CacheConfig(cacheNames = "upload:finish:hash")
 @Slf4j
 public class MediaServiceImpl implements MediaService {
-    private static final String BASE_DIR = "D:\\Project\\static\\media\\";
+    private static final String BASE_DIR = "C:\\Users\\Punny\\Desktop\\twitter\\static\\media\\";
     @Resource
     MediaMapper mediaMapper;
     @Resource
