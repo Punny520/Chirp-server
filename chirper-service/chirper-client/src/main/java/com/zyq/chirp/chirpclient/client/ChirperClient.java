@@ -19,7 +19,7 @@ public interface ChirperClient {
     @PostMapping("/chirper/content")
     ResponseEntity<List<ChirperDto>> getContent(@RequestParam("ids") List<Long> ids, @RequestParam("userId") Long userId);
 
-    @GetMapping("/following/{id}/{size}")
+    @GetMapping("/chirper/following/{id}/{size}")
     ResponseEntity<List<ChirperDto>> getByFollowerId(@PathVariable("id") Long userId, @PathVariable("size") Integer size);
     @PostMapping("/chirper/basic_info")
     ResponseEntity<List<ChirperDto>> getBasicInfo(@RequestParam("ids") List<Long> ids);
