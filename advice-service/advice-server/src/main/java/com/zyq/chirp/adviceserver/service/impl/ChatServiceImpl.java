@@ -217,13 +217,17 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public List<ChatDto> getChatIndex(Long userId) {
+        //根据用户id获取与用户相关的对话id
         Set<String> conversations = this.getConversationByUserId(userId);
+        //从redis中获取已经被缓存的消息，zset，key为conversation:对话id
         List<Long> messageIds = this.getConvTop(conversations);
         ArrayList<ChatDto> messages = new ArrayList<>();
+        //根据消息id获取具体消息
         this.getById(messageIds).forEach(chatDto -> {
             messages.add(chatDto);
             conversations.remove(chatDto.getConversationId());
         });
+        //如果如果redis中没有的则在数据库中获取
         Collection<List<ChatDto>> values = this.getChatByConversation(conversations, userId, 1).values();
         values.forEach(messages::addAll);
         return messages;
@@ -411,6 +415,11 @@ public class ChatServiceImpl implements ChatService {
                 .eq(Chat::getReceiverId, receiverId));
     }
 
+    /**
+     * 通过用户的id获取他参与的对话id集合
+     * @param userId
+     * @return
+     */
     @Override
     public Set<String> getConversationByUserId(Long userId) {
         return messageMapper.selectList(new LambdaQueryWrapper<Chat>()

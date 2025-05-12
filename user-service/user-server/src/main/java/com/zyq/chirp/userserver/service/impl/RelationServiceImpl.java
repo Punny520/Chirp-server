@@ -127,7 +127,7 @@ public class RelationServiceImpl implements RelationService {
     @Override
     public List<Long> getFollower(Long userId, Integer page, Integer pageSize) {
         Page<Relation> selectPage = new Page<>(page, pageSize);
-        selectPage.setSearchCount(false);
+        selectPage.setSearchCount(false);//不查询总记录数，节省性能
         return relationMapper.selectPage(selectPage, new LambdaQueryWrapper<Relation>()
                         .select(Relation::getFromId)
                         .eq(Relation::getToId, userId)
@@ -177,6 +177,7 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     @Cacheable(key = "#fromId+':'+#toId")
+    //TODO BUG,应该使用CacheEvict
     public void follow(Long fromId, Long toId) {
         if (Objects.isNull(fromId) || Objects.isNull(toId)) {
             throw new ChirpException(Code.ERR_BUSINESS, "信息不完善");

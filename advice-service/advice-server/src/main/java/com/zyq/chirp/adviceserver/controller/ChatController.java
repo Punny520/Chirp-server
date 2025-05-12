@@ -20,7 +20,7 @@ public class ChatController {
 
     @Resource
     MessageAssembleStrategy<ChatDto> assemble;
-
+    //获取用户所有的对话消息
     @GetMapping("/index")
     public ResponseEntity<List<ChatDto>> getIndexPage() {
         List<ChatDto> messages = chatService.getChatIndex(StpUtil.getLoginIdAsLong());

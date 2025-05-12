@@ -70,12 +70,19 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
+    /**
+     * 通过id列表查询用户id
+     * 并且查询与当前用户的关系和反向关系
+     * @param userIds 被查询的用户id列表
+     * @param currentUserId 当前用户id
+     * @return
+     */
     @Override
     public List<UserDto> getByIds(Collection<Long> userIds, Long currentUserId) {
         if (CollectionUtils.isEmpty(userIds)) {
             throw new ChirpException(Code.ERR_BUSINESS, "对象用户为空");
         } else {
+            //使用CountDownLatch结合虚拟线程将下面三个操作并发执行提升查询效率
             CountDownLatch latch = new CountDownLatch(3);
             final Map<Long, Integer> relation = new HashMap<>();
             final Map<Long, Integer> relationReverse = new HashMap<>();
@@ -129,10 +136,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    /**
+     * 查询出来的用户信息会包含与当前用户的关系和反向关系，
+     * 如果是另外一个用户来查询的话因为有缓存，
+     * 导致返回的是上一个用户的查询结构，其中的关系和反向关系是错误的。
+     * @param username
+     * @param currentUserId
+     * @return
+     */
     @Override
     @Cacheable(key = "'profile:'+#username")
     public UserDto getByUsername(String username, Long currentUserId) {
+        //TODO 该方法有BUG
         if (username == null || username.trim().isEmpty()) {
             throw new ChirpException(Code.ERR_BUSINESS, "未提供用户信息");
         }
@@ -268,6 +283,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto save(UserDto userDto) {
+        //使用布隆过滤器检查用户名和邮箱是否已经存在
         if (isUnExist(userDto.getUsername())) {
             throw new ChirpException(Code.ERR_BUSINESS, "用户名已存在，请更换");
         }

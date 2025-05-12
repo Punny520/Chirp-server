@@ -101,18 +101,18 @@ CREATE TABLE `tb_community`
 (
     `id`          bigint                                                         NOT NULL,
     `user_id`     bigint                                                         NULL DEFAULT NULL,
-    `name`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  NULL DEFAULT NULL,
-    `tags`        varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-    `cover`       varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-    `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+    `name`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL,
+    `tags`        varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+    `cover`       varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+    `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
     `join_range`  tinyint(1)                                                     NULL DEFAULT NULL COMMENT '谁可以加入（范围）',
     `post_range`  tinyint(1)                                                     NULL DEFAULT NULL COMMENT '谁可以发布（范围）',
     `create_time` datetime                                                       NULL DEFAULT NULL,
-    `rules`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci          NULL,
+    `rules`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci          NULL,
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -132,7 +132,7 @@ CREATE TABLE `tb_community_apply`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -151,7 +151,7 @@ CREATE TABLE `tb_community_invitation`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -312,11 +312,11 @@ CREATE TABLE `user_of_chat_public`
     `id`                  bigint                                                        NOT NULL,
     `user_id`             bigint                                                        NULL DEFAULT NULL,
     `chat_allow`          tinyint(1)                                                    NULL DEFAULT NULL,
-    `pinned_conversation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+    `pinned_conversation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -333,7 +333,7 @@ CREATE TABLE `user_of_community`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
