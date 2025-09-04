@@ -208,7 +208,7 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     BloomUtil bloomUtil;
-    long INIT_CAPACITY = 100 * 100000000L;
+    long INIT_CAPACITY = 100000000L;
 
     /**
      * 搜索用户，包含用户基本信息和与当前用户的关系
